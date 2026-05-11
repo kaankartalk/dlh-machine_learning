@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Module for transposing a 2D matrix.
+Transposing a 2D matrix.
 """
 
 
-df matrix_transpose(matrix):
+def matrix_transpose(matrix):
     """
     Returns the transpose of a 2D matrix.
     """
