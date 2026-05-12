@@ -4,7 +4,7 @@ Adding two arrays element-wise.
 """
 
 
-df add_arrays(arr1, arr2):
+def add_arrays(arr1, arr2):
     """
     Adds two arrays element.
     Returns a new list.
