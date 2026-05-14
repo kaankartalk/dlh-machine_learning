@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+Adds two 2D matrices element-wise.
+"""
+
+
 def add_matrices2D(mat1, mat2):
     # Check if shapes match
     if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):
