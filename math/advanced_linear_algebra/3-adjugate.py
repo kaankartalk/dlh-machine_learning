@@ -3,6 +3,7 @@
 Module for calculating the adjugate matrix of a square matrix.
 """
 
+
 def adjugate(matrix):
     """
     Calculates the adjugate matrix of a square matrix.
