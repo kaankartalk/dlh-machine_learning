@@ -5,6 +5,9 @@ Module for calculating the cofactor matrix of a square matrix.
 
 
 def cofactor(matrix):
+    """
+    Calculates the cofactor matrix of a square matrix.
+    """
     if not isinstance(matrix, list) or matrix == []:
         raise TypeError("matrix must be a list of lists")
     for row in matrix:
