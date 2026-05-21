@@ -34,7 +34,6 @@ def adjugate(matrix):
             total += ((-1) ** c) * m[0][c] * det(minor)
         return total
 
-    # cofactor matrix
     cof = []
     for i in range(n):
         row_cof = []
@@ -48,7 +47,6 @@ def adjugate(matrix):
             row_cof.append(value)
         cof.append(row_cof)
 
-    # transpose of cofactor = adjugate
     adj = []
     for i in range(n):
         row = []
