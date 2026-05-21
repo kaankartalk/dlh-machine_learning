@@ -17,18 +17,28 @@ def cofactor(matrix):
         if len(m) == 1:
             return m[0][0]
         if len(m) == 2:
-            return m[0][0]*m[1][1] - m[0][1]*m[1][0]
+            return m[0][0] * m[1][1] - m[0][1] * m[1][0]
 
-        s = 0
+        total = 0
         for c in range(len(m)):
-            minor = [row[:c] + row[c+1:] for row in m[1:]]
-            s += ((-1)**c) * m[0][c] * det(minor)
-        return s
+            minor = []
+            for r in range(1, len(m)):
+                row = m[r][:c] + m[r][c + 1:]
+                minor.append(row)
+            total += ((-1) ** c) * m[0][c] * det(minor)
+        return total
 
-    return [
-        [
-            ((-1)**(i+j)) * det([row[:j] + row[j+1:] for r, row in enumerate(matrix) if r != i])
-            for j in range(n)
-        ]
-        for i in range(n)
-    ]
+    cof = []
+    for i in range(n):
+        row_cof = []
+        for j in range(n):
+            minor = []
+            for r in range(n):
+                if r != i:
+                    row = matrix[r][:j] + matrix[r][j + 1:]
+                    minor.append(row)
+            value = ((-1) ** (i + j)) * det(minor)
+            row_cof.append(value)
+        cof.append(row_cof)
+
+    return cof
