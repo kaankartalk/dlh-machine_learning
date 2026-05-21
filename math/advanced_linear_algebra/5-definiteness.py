@@ -12,20 +12,20 @@ def definiteness(matrix):
     if not isinstance(matrix, np.ndarray):
         raise TypeError("matrix must be a numpy.ndarray")
 
-    # must be square and non-empty
     if matrix.size == 0 or len(matrix.shape) != 2:
         return None
     n, m = matrix.shape
     if n != m:
         return None
 
-    # compute eigenvalues
+    if not np.allclose(matrix, matrix.T):
+        return None
+
     try:
         vals = np.linalg.eigvals(matrix)
     except Exception:
         return None
 
-    # real part only (imaginary should be zero for symmetric matrices)
     vals = np.real(vals)
 
     if np.all(vals > 0):
