@@ -1,58 +1,40 @@
 #!/usr/bin/env python3
 
 def cofactor(matrix):
-    # --- type checks ---
     if not isinstance(matrix, list) or matrix == []:
-        raise TypeError("matrix must be a list of lists")
-
+        raise TypeError()
     for row in matrix:
         if not isinstance(row, list):
-            raise TypeError("matrix must be a list of lists")
+            raise TypeError()
 
-    # --- square & non-empty check ---
-    size = len(matrix)
-    if size == 0 or any(len(row) != size for row in matrix):
-        raise ValueError("matrix must be a non-empty square matrix")
+    n = len(matrix)
+    if n == 0 or any(len(row) != n for row in matrix):
+        raise ValueError()
 
-    # --- helper: determinant ---
     def determinant(mat):
-        if mat == [[]]:
+        if mat == [] or mat == [[]]:
             return 1
-        n = len(mat)
-        if n == 1:
+        if len(mat) == 1:
             return mat[0][0]
-        if n == 2:
+        if len(mat) == 2:
             return mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0]
 
         det = 0
-        for col in range(n):
+        for c in range(len(mat)):
             minor = []
-            for r in range(1, n):
+            for r in range(1, len(mat)):
                 row = []
-                for c in range(n):
-                    if c != col:
-                        row.append(mat[r][c])
+                for k in range(len(mat)):
+                    if k != c:
+                        row.append(mat[r][k])
                 minor.append(row)
-            det += ((-1) ** col) * mat[0][col] * determinant(minor)
+            det += ((-1)**c) * mat[0][c] * determinant(minor)
         return det
 
-    # --- compute cofactor matrix ---
     cof = []
-    for i in range(size):
-        cof_row = []
-        for j in range(size):
-            # build minor for element (i, j)
+    for i in range(n):
+        row_cof = []
+        for j in range(n):
             minor = []
-            for r in range(size):
+            for r in range(n):
                 if r != i:
-                    row = []
-                    for c in range(size):
-                        if c != j:
-                            row.append(matrix[r][c])
-                    minor.append(row)
-
-            sign = (-1) ** (i + j)
-            cof_row.append(sign * determinant(minor))
-        cof.append(cof_row)
-
-    return cof
