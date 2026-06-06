@@ -3,4 +3,3 @@
 two = __import__('3-two').two
 
 two()
-hbt-ml@Holberton-ML:~$ ./3-main.py
