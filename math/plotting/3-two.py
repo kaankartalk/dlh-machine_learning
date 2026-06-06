@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Plotting exponential decay of radioactive elements (C-14 and Ra-226)."""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
