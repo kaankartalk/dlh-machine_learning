@@ -21,6 +21,8 @@ def two():
 
     plt.xlim(0, 20000)
     plt.ylim(0, 1)
+    plt.gca().set_ylim(bottom=0, top=1)
+    plt.gca().set_ybound(0, 1)
 
     plt.legend(loc='upper right')
     plt.show()
