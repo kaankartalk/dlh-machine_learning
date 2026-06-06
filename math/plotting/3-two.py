@@ -24,5 +24,3 @@ def two():
 
     plt.legend(loc='upper right')
     plt.show()
-
-two()
