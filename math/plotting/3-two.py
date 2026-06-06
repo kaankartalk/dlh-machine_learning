@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-ef two():
+def two():
     """Plots exponential decay of C-14 and Ra-226"""
     x = np.arange(0, 21000, 1000)
     r = np.log(0.5)
@@ -22,3 +22,4 @@ ef two():
     plt.ylim(0, 1)
     plt.legend(loc='upper right')
     plt.show()
+two()
