@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def two():
+    """Plot two exponential decay curves."""
     x = np.arange(0, 21000, 1000)
     r = np.log(0.5)
     t1 = 5730
