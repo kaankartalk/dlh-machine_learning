@@ -41,3 +41,19 @@ class Poisson:
         lambtha = self.lambtha
 
         return ((e ** (-lambtha)) * (lambtha ** k)) / factorial(k)
+
+    def cdf(self, k):
+        """Calculates the CDF for given number of successes k"""
+
+        if not isinstance(k, int):
+            k = int(k)
+
+        if k < 0:
+            return 0
+
+        # sum of PMFs from 0 to k
+        total = 0
+        for i in range(0, k + 1):
+            total += self.pmf(i)
+
+        return total
