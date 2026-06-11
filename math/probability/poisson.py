@@ -38,11 +38,11 @@ class Poisson:
                 result *= i
             return result
 
-        # Manual exponential (Taylor series)
+        # Manual exponential (Taylor series, 100 terms for precision)
         def exp(x):
             total = 1
             term = 1
-            for i in range(1, 50):
+            for i in range(1, 100):
                 term *= x / i
                 total += term
             return total
