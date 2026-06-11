@@ -23,30 +23,31 @@ class Poisson:
     def pmf(self, k):
         """Calculates PMF for given number of successes k"""
 
-        # Convert non-integer k to int
         if not isinstance(k, int):
             k = int(k)
 
-        # PMF is zero for negative k
         if k < 0:
             return 0
 
-        # Manual factorial
         def factorial(n):
-            result = 1
+            result = 1.0
             for i in range(1, n + 1):
                 result *= i
             return result
 
-        # Manual exponential (Taylor series, 100 terms for precision)
         def exp(x):
-            total = 1
-            term = 1
-            for i in range(1, 100):
+            total = 1.0
+            term = 1.0
+            i = 1
+            # keep adding terms until they are very small
+            while True:
                 term *= x / i
+                if term == 0 or abs(term) < 1e-15:
+                    break
                 total += term
+                i += 1
             return total
 
-        λ = self.lambtha
+        lambtha = self.lambtha
 
-        return (exp(-λ) * (λ ** k)) / factorial(k)
+        return (exp(-lambtha) * (lambtha ** k)) / factorial(k)
