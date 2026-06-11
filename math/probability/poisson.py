@@ -35,8 +35,8 @@ class Poisson:
                 result *= i
             return result
 
-        # high precision e constant (same as math.e)
-        e = 2.7182818284590452353602874713527
+        # REQUIRED BY PROJECT: e = 2.7182818285
+        e = 2.7182818285
 
         lambtha = self.lambtha
 
