@@ -56,3 +56,26 @@ class Normal:
         exponent = -0.5 * (((x - mean) / stddev) ** 2)
 
         return coeff * (e ** exponent)
+
+    def cdf(self, x):
+        """Calculates the CDF for a given x-value"""
+
+        e = 2.7182818285
+        pi = 3.1415926536
+
+        mean = self.mean
+        stddev = self.stddev
+
+        # z-score
+        z = (x - mean) / (stddev * (2 ** 0.5))
+
+        # erf approximation (Taylor series)
+        erf = (2 / (pi ** 0.5)) * (
+            z
+            - (z ** 3) / 3
+            + (z ** 5) / 10
+            - (z ** 7) / 42
+            + (z ** 9) / 216
+        )
+
+        return 0.5 * (1 + erf)
