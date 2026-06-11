@@ -26,3 +26,15 @@ class Exponential:
             # exponential lambtha = 1 / mean
             mean = sum(data) / len(data)
             self.lambtha = 1 / mean
+
+    def pdf(self, x):
+        """Calculates the PDF for a given time period x"""
+
+        if x < 0:
+            return 0
+
+        # required e value from project
+        e = 2.7182818285
+        lambtha = self.lambtha
+
+        return lambtha * (e ** (-lambtha * x))
