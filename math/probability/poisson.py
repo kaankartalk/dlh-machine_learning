@@ -35,19 +35,9 @@ class Poisson:
                 result *= i
             return result
 
-        def exp(x):
-            total = 1.0
-            term = 1.0
-            i = 1
-            # keep adding terms until they are very small
-            while True:
-                term *= x / i
-                if term == 0 or abs(term) < 1e-15:
-                    break
-                total += term
-                i += 1
-            return total
+        # high precision e constant (same as math.e)
+        e = 2.7182818284590452353602874713527
 
         lambtha = self.lambtha
 
-        return (exp(-lambtha) * (lambtha ** k)) / factorial(k)
+        return ((e ** (-lambtha)) * (lambtha ** k)) / factorial(k)
