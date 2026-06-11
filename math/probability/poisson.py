@@ -23,3 +23,14 @@ class Poisson:
 
             # Calculate lambtha = mean of data
             self.lambtha = float(sum(data) / len(data))
+
+    def pmf(self, k):
+        # Convert non-integer k to int
+        if not isinstance(k, int):
+            k = int(k)
+        # PMF is zero for negative k
+        if k < 0:
+            return 0
+        λ = self.lambtha
+        # Poisson PMF formula
+        return (math.exp(-λ) * (λ ** k)) / math.factorial(k)
