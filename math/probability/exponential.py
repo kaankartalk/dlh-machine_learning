@@ -50,4 +50,3 @@ class Exponential:
         lambtha = self.lambtha
 
         return 1 - (e ** (-lambtha * x))
-
