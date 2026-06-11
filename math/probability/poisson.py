@@ -31,7 +31,22 @@ class Poisson:
         if k < 0:
             return 0
 
+        # Manual factorial
+        def factorial(n):
+            result = 1
+            for i in range(1, n + 1):
+                result *= i
+            return result
+
+        # Manual exponential (Taylor series)
+        def exp(x):
+            total = 1
+            term = 1
+            for i in range(1, 50):
+                term *= x / i
+                total += term
+            return total
+
         λ = self.lambtha
 
-        # Poisson PMF formula
-        return (math.exp(-λ) * (λ ** k)) / math.factorial(k)
+        return (exp(-λ) * (λ ** k)) / factorial(k)
