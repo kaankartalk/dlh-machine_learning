@@ -24,19 +24,36 @@ class Binomial:
                 raise ValueError("data must contain multiple values")
 
             mean = sum(data) / len(data)
-
-            # Variance
             var = sum((x - mean) ** 2 for x in data) / len(data)
 
-            # Method of Moments:
-            # p = 1 - (var / mean)
+            # Method of Moments
             p_est = 1 - (var / mean)
-
-            # n = mean / p
             n_est = round(mean / p_est)
-
-            # Recalculate p using rounded n
             p_est = mean / n_est
 
             self.n = int(n_est)
             self.p = float(p_est)
+
+    def pmf(self, k):
+        """Calculates the PMF for a given number of successes k."""
+        if not isinstance(k, int):
+            k = int(k)
+
+        if k < 0 or k > self.n:
+            return 0
+
+        # factorial helper
+        def factorial(x):
+            result = 1
+            for i in range(1, x + 1):
+                result *= i
+            return result
+
+        # n choose k
+        nck = factorial(self.n) / (factorial(k) *
+                                   factorial(self.n - k))
+
+        p = self.p
+        q = 1 - p
+
+        return nck * (p ** k) * (q ** (self.n - k))
