@@ -58,7 +58,7 @@ class Binomial:
 
         return nck * (p ** k) * (q ** (self.n - k))
    
- def pmf(self, k):
+   def pmf(self, k):
         """Calculates the PMF for a given number of successes k."""
         if not isinstance(k, int):
             k = int(k)
