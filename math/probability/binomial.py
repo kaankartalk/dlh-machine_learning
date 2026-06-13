@@ -55,3 +55,19 @@ class Binomial:
         q = 1 - p
 
         return nck * (p ** k) * (q ** (self.n - k))
+
+    def cdf(self, k):
+        """Calculates the CDF for a given number of successes k."""
+        if not isinstance(k, int):
+            k = int(k)
+
+        if k < 0:
+            return 0
+        if k > self.n:
+            return 1
+
+        total = 0
+        for i in range(0, k + 1):
+            total += self.pmf(i)
+
+        return total
