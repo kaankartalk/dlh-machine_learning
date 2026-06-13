@@ -42,38 +42,12 @@ class Binomial:
         if k < 0 or k > self.n:
             return 0
 
-        # factorial helper
         def factorial(x):
             result = 1
             for i in range(1, x + 1):
                 result *= i
             return result
 
-        # n choose k
-        nck = factorial(self.n) / (factorial(k) *
-                                   factorial(self.n - k))
-
-        p = self.p
-        q = 1 - p
-
-        return nck * (p ** k) * (q ** (self.n - k))
-   
-   def pmf(self, k):
-        """Calculates the PMF for a given number of successes k."""
-        if not isinstance(k, int):
-            k = int(k)
-
-        if k < 0 or k > self.n:
-            return 0
-
-        # factorial helper
-        def factorial(x):
-            result = 1
-            for i in range(1, x + 1):
-                result *= i
-            return result
-
-        # n choose k
         nck = factorial(self.n) / (factorial(k) *
                                    factorial(self.n - k))
 
