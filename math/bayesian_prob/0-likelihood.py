@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Likelihood module for Bayesian probability"""
 
-
 import numpy as np
 
 
@@ -15,7 +14,8 @@ def likelihood(x, n, P):
 
     # Validate x
     if not isinstance(x, int) or x < 0:
-        raise ValueError("x must be an integer that is greater than or equal to 0")
+        msg = "x must be an integer that is greater than or equal to 0"
+        raise ValueError(msg)
     if x > n:
         raise ValueError("x cannot be greater than n")
 
@@ -30,6 +30,4 @@ def likelihood(x, n, P):
     comb = fact(n) / (fact(x) * fact(n - x))
 
     # Likelihood for each probability in P
-    likelihoods = comb * (P ** x) * ((1 - P) ** (n - x))
-
-    return likelihoods
+    return comb * (P ** x) * ((1 - P) ** (n - x))
