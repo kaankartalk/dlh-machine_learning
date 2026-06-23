@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import numpy as np
-
+"""
+Module for calculating the posterior probability of various hypothetical
+probabilities of developing severe side effects given observed data.
+"""
 
 def posterior(x, n, P, Pr):
     """Calculates the posterior probability of each probability in P"""
