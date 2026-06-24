@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
 """
-Calculates the mean and covariance of a data set.
+Calculates a correlation matrix from a covariance matrix.
 """
 
 import numpy as np
 
 
-def mean_cov(X):
-    """Calculates the mean and covariance of a data set"""
-    if not isinstance(X, np.ndarray) or X.ndim != 2:
-        raise TypeError("X must be a 2D numpy.ndarray")
+def correlation(C):
+    """Calculates a correlation matrix"""
+    if not isinstance(C, np.ndarray):
+        raise TypeError("C must be a numpy.ndarray")
 
-    n, d = X.shape
-    if n < 2:
-        raise ValueError("X must contain multiple data points")
+    if C.ndim != 2 or C.shape[0] != C.shape[1]:
+        raise ValueError("C must be a 2D square matrix")
 
-    mean = np.mean(X, axis=0, keepdims=True)
-    X_centered = X - mean
-    cov = (X_centered.T @ X_centered) / (n - 1)
-
-    return mean, cov
+    std = np.sqrt(np.diag(C))
+    denom = np.outer(std, std)
+    corr = C / denom
+    return corr
