@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Builds a neural network with the Keras library using the Input class."""
-import tensorflow as tf
+import tensorflow.keras as K
 
 
 def build_model(nx, layers, activations, lambtha, keep_prob):
@@ -17,20 +17,20 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
     Returns:
         the keras model
     """
-    regularizer = tf.keras.regularizers.l2(lambtha)
-    inputs = tf.keras.Input(shape=(nx,))
+    regularizer = K.regularizers.l2(lambtha)
+    inputs = K.Input(shape=(nx,))
     x = inputs
 
     for i in range(len(layers)):
-        x = tf.keras.layers.Dense(
+        x = K.layers.Dense(
             layers[i],
             activation=activations[i],
             kernel_regularizer=regularizer
         )(x)
 
         if i != len(layers) - 1:
-            x = tf.keras.layers.Dropout(1 - keep_prob)(x)
+            x = K.layers.Dropout(1 - keep_prob)(x)
 
-    model = tf.keras.Model(inputs=inputs, outputs=x)
+    model = K.Model(inputs=inputs, outputs=x)
 
     return model

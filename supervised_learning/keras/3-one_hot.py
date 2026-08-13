@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Converts a label vector into a one-hot matrix."""
-import tensorflow as tf
+import tensorflow.keras as K
 
 
 def one_hot(labels, classes=None):
@@ -14,4 +14,4 @@ def one_hot(labels, classes=None):
         the one-hot matrix, with the last dimension being the
         number of classes
     """
-    return tf.keras.utils.to_categorical(labels, num_classes=classes)
+    return K.utils.to_categorical(labels, num_classes=classes)
