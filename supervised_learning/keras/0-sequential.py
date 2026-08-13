@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""Builds a neural network with the Keras library."""
+import tensorflow as tf
+
+
+def build_model(nx, layers, activations, lambtha, keep_prob):
+    """Builds a neural network with the Keras library.
+
+    Args:
+        nx: number of input features to the network
+        layers: list containing the number of nodes in each layer
+        activations: list containing the activation functions
+            used for each layer
+        lambtha: L2 regularization parameter
+        keep_prob: probability that a node will be kept for dropout
+
+    Returns:
+        the keras model
+    """
+    regularizer = tf.keras.regularizers.l2(lambtha)
+    model = tf.keras.Sequential()
+
+    for i in range(len(layers)):
+        if i == 0:
+            model.add(tf.keras.layers.Dense(
+                layers[i],
+                activation=activations[i],
+                kernel_regularizer=regularizer,
+                input_shape=(nx,)
+            ))
+        else:
+            model.add(tf.keras.layers.Dense(
+                layers[i],
+                activation=activations[i],
+                kernel_regularizer=regularizer
+            ))
+
+        if i != len(layers) - 1:
+            model.add(tf.keras.layers.Dropout(1 - keep_prob))
+
+    return model
+
