@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Variational autoencoder"""
-from tensorflow import keras
+import tensorflow.keras as keras
 
 K = keras.ops if hasattr(keras, "ops") else keras.backend
 
