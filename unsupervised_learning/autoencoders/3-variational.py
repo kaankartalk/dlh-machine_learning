@@ -5,31 +5,22 @@ import tensorflow.keras as keras
 K = keras.ops if hasattr(keras, "ops") else keras.backend
 
 
-class Sampling(keras.layers.Layer):
-    """Samples the latent vector with the reparametrization trick"""
+def sampling(args):
+    """
+    Samples the latent vector with the reparametrization trick.
 
-    def __init__(self, **kwargs):
-        """Initializes the layer with a seeded random generator"""
-        super().__init__(**kwargs)
-        if hasattr(keras, "random"):
-            self.seed_generator = keras.random.SeedGenerator(42)
+    Args:
+        args: list with the mean and the log variance tensors.
 
-    def call(self, inputs):
-        """
-        Samples the latent vector.
-
-        Args:
-            inputs: list with the mean and the log variance tensors.
-
-        Returns:
-            The latent vector mu + exp(log_var / 2) * epsilon.
-        """
-        mu, log_var = inputs
-        if hasattr(keras, "random"):
-            eps = keras.random.normal(K.shape(mu), seed=self.seed_generator)
-        else:
-            eps = K.random_normal(K.shape(mu))
-        return mu + K.exp(log_var / 2) * eps
+    Returns:
+        The latent vector mu + exp(log_var / 2) * epsilon.
+    """
+    mu, log_var = args
+    if hasattr(keras, "random"):
+        eps = keras.random.normal(K.shape(mu))
+    else:
+        eps = K.random_normal(K.shape(mu))
+    return mu + K.exp(log_var / 2) * eps
 
 
 class VAELoss(keras.layers.Layer):
@@ -85,7 +76,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         x = keras.layers.Dense(units, activation="relu")(x)
     mu = keras.layers.Dense(latent_dims, activation=None)(x)
     log_var = keras.layers.Dense(latent_dims, activation=None)(x)
-    z = Sampling()([mu, log_var])
+    z = keras.layers.Lambda(sampling)([mu, log_var])
     encoder = keras.Model(inputs, [z, mu, log_var])
 
     latent_inputs = keras.Input(shape=(latent_dims,))
