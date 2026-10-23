@@ -6,7 +6,7 @@ K = keras.ops if hasattr(keras, "ops") else keras.backend
 
 
 class Sampling(keras.layers.Layer):
-    """Samples the latent vector and adds the KL divergence loss"""
+    """Samples the latent vector with the reparametrization trick"""
 
     def __init__(self, **kwargs):
         """Initializes the layer with a seeded random generator"""
@@ -16,7 +16,7 @@ class Sampling(keras.layers.Layer):
 
     def call(self, inputs):
         """
-        Applies the reparametrization trick.
+        Samples the latent vector.
 
         Args:
             inputs: list with the mean and the log variance tensors.
@@ -29,11 +29,39 @@ class Sampling(keras.layers.Layer):
             eps = keras.random.normal(K.shape(mu), seed=self.seed_generator)
         else:
             eps = K.random_normal(K.shape(mu))
+        return mu + K.exp(log_var / 2) * eps
+
+
+class VAELoss(keras.layers.Layer):
+    """Adds the KL divergence and the reconstruction scale to the loss"""
+
+    def __init__(self, input_dims, **kwargs):
+        """Stores the number of input dimensions"""
+        super().__init__(**kwargs)
+        self.input_dims = input_dims
+
+    def call(self, inputs):
+        """
+        Adds the extra loss terms and returns the reconstruction.
+
+        The compiled binary cross-entropy gives the mean over the pixels.
+        The extra (input_dims - 1) * bce makes the reconstruction loss a
+        sum over the pixels, and the KL divergence is added on top.
+
+        Args:
+            inputs: list with the input, the reconstruction, the mean and
+                the log variance tensors.
+
+        Returns:
+            The reconstruction tensor, unchanged.
+        """
+        x, x_hat, mu, log_var = inputs
+        bce = K.mean(keras.losses.binary_crossentropy(x, x_hat))
         kl = -0.5 * K.sum(
             1 + log_var - K.square(mu) - K.exp(log_var), axis=-1
         )
-        self.add_loss(K.mean(kl))
-        return mu + K.exp(log_var / 2) * eps
+        self.add_loss((self.input_dims - 1) * bce + K.mean(kl))
+        return x_hat
 
 
 def autoencoder(input_dims, hidden_layers, latent_dims):
@@ -49,8 +77,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     Returns:
         encoder, decoder, auto: the encoder (outputs the latent vector,
         the mean and the log variance), the decoder and the full
-        autoencoder. The autoencoder is compiled with adam and binary
-        cross-entropy, plus the KL divergence term.
+        autoencoder, compiled with adam and binary cross-entropy.
     """
     inputs = keras.Input(shape=(input_dims,))
     x = inputs
@@ -68,12 +95,10 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     outputs = keras.layers.Dense(input_dims, activation="sigmoid")(y)
     decoder = keras.Model(latent_inputs, outputs)
 
-    auto = keras.Model(inputs, decoder(z))
-
-    def loss(y_true, y_pred):
-        """Binary cross-entropy summed over the input dimensions"""
-        return keras.losses.binary_crossentropy(y_true, y_pred) * input_dims
-
-    auto.compile(optimizer="adam", loss=loss)
+    z_out, mu_out, log_var_out = encoder(inputs)
+    x_hat = decoder(z_out)
+    x_hat = VAELoss(input_dims)([inputs, x_hat, mu_out, log_var_out])
+    auto = keras.Model(inputs, x_hat)
+    auto.compile(optimizer="adam", loss="binary_crossentropy")
 
     return encoder, decoder, auto
