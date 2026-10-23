@@ -9,6 +9,7 @@ Recurrent Neural Networks implemented from scratch with NumPy.
 | `0-rnn_cell.py` | `RNNCell` class: a cell of a simple RNN with a tanh hidden state and a softmax output |
 | `1-rnn.py` | `rnn` function: forward propagation for a simple RNN over all time steps |
 | `3-lstm_cell.py` | `LSTMCell` class: an LSTM unit with forget, update, and output gates and a softmax output |
+| `4-deep_rnn.py` | `deep_rnn` function: forward propagation for a deep (stacked) RNN |
 
 ## Requirements
 
