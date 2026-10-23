@@ -8,6 +8,7 @@ Exercises on Generative Adversarial Networks with Keras.
 |------|-------------|
 | `0-simple_gan.py` | `Simple_GAN` class with a custom `train_step`: `disc_iter` discriminator steps, then one generator step |
 | `0-main_01.py` | Trains a Simple GAN on a circle of points for 16 epochs |
+| `3-generate_faces.py` | `convolutional_GenDiscr()` builds a convolutional generator and discriminator for 16x16 greyscale faces |
 
 ## Requirements
 
