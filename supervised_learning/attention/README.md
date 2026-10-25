@@ -18,6 +18,7 @@ written in Python 3 with numpy and tensorflow.
 | --- | --- |
 | `4-positional_encoding.py` | Function `positional_encoding(max_seq_len, dm)` that calculates the positional encoding for a transformer |
 | `5-sdp_attention.py` | Function `sdp_attention(Q, K, V, mask=None)` that calculates the scaled dot product attention |
+| `6-multihead_attention.py` | Class `MultiHeadAttention` that performs multi head attention |
 
 ## Author
 
