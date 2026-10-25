@@ -17,6 +17,7 @@ embeddings, written in Python 3 with numpy.
 | File | Description |
 | --- | --- |
 | `0-bag_of_words.py` | Function `bag_of_words(sentences, vocab=None)` that creates a bag of words embedding matrix |
+| `1-tf_idf.py` | Function `tf_idf(sentences, vocab=None)` that creates a TF-IDF embedding |
 
 ## Author
 
