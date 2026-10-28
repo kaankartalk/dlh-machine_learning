@@ -15,3 +15,4 @@ Reinforcement learning project using gymnasium (FrozenLake-v1) and numpy.
 |------|-------------|
 | `0-load_env.py` | `load_frozen_lake(desc=None, map_name=None, is_slippery=False)` loads the pre-made FrozenLake environment |
 | `1-q_init.py` | `q_init(env)` initializes the Q-table as a numpy.ndarray of zeros |
+| `2-epsilon_greedy.py` | `epsilon_greedy(Q, state, epsilon)` uses epsilon-greedy to determine the next action |
