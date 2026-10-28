@@ -31,3 +31,4 @@ Read or watch:
 |------|-------------|
 | [policy_gradient.py](./policy_gradient.py) | `policy(matrix, weight)` computes the policy with a weight of a matrix |
 | [policy_gradient.py](./policy_gradient.py) | `policy_gradient(state, weight)` computes the Monte-Carlo policy gradient and returns the action and the gradient |
+| [train.py](./train.py) | `train(env, nb_episodes, alpha=0.000045, gamma=0.98)` implements a full training and returns the score of each episode |
