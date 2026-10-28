@@ -30,3 +30,4 @@ Read or watch:
 | File | Description |
 |------|-------------|
 | [policy_gradient.py](./policy_gradient.py) | `policy(matrix, weight)` computes the policy with a weight of a matrix |
+| [policy_gradient.py](./policy_gradient.py) | `policy_gradient(state, weight)` computes the Monte-Carlo policy gradient and returns the action and the gradient |
